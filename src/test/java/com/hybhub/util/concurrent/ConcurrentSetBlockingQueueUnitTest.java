@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
 
-import org.testng.Assert;
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
-@Test
 public class ConcurrentSetBlockingQueueUnitTest {
 
+	@Test
 	public void testRemainingCapacity() throws InterruptedException {
 		//Arrange
 		final BlockingQueue<Integer> queue = new ConcurrentSetBlockingQueue<>(5);
@@ -42,19 +42,19 @@ public class ConcurrentSetBlockingQueueUnitTest {
 		final int capacityEleven = queue.remainingCapacity();
 
 		//Test
-		Assert.assertEquals(initialCapacity, 5);
-		Assert.assertEquals(capacityOne, 4);
-		Assert.assertEquals(capacityOneRepeated, 4);
-		Assert.assertEquals(capacityTwo, 3);
-		Assert.assertEquals(capacityThree, 3);
-		Assert.assertEquals(capacityFour, 2);
-		Assert.assertEquals(capacityFive, 3);
-		Assert.assertEquals(capacitySix, 2);
-		Assert.assertEquals(capacitySeven, 2);
-		Assert.assertEquals(capacityEight, 3);
-		Assert.assertEquals(capacityNine, 4);
-		Assert.assertEquals(capacityTen, 3);
-		Assert.assertEquals(capacityEleven, 5);
+		Assertions.assertEquals(5, initialCapacity);
+		Assertions.assertEquals(4, capacityOne);
+		Assertions.assertEquals(4, capacityOneRepeated);
+		Assertions.assertEquals(3, capacityTwo);
+		Assertions.assertEquals(3, capacityThree);
+		Assertions.assertEquals(2, capacityFour);
+		Assertions.assertEquals(3, capacityFive);
+		Assertions.assertEquals(2, capacitySix);
+		Assertions.assertEquals(2, capacitySeven);
+		Assertions.assertEquals(3, capacityEight);
+		Assertions.assertEquals(4, capacityNine);
+		Assertions.assertEquals(3, capacityTen);
+		Assertions.assertEquals(5, capacityEleven);
 	}
 
 }

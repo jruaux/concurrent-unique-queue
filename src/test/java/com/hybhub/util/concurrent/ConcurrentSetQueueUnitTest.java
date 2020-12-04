@@ -5,12 +5,12 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Queue;
 
-import org.testng.Assert;
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
-@Test
 public class ConcurrentSetQueueUnitTest {
 
+	@Test
 	public void testFullCapacityOffer() throws InterruptedException {
 		//Arrange
 		final Queue<Integer> queue = new ConcurrentSetBlockingQueue<>(1);
@@ -28,12 +28,13 @@ public class ConcurrentSetQueueUnitTest {
 		}
 
 		//Test
-		Assert.assertTrue(acceptedOffer);
-		Assert.assertFalse(rejectedOffer1);
-		Assert.assertFalse(rejectedOffer2);
-		Assert.assertTrue(rejectedException);
+		Assertions.assertTrue(acceptedOffer);
+		Assertions.assertFalse(rejectedOffer1);
+		Assertions.assertFalse(rejectedOffer2);
+		Assertions.assertTrue(rejectedException);
 	}
 
+	@Test
 	public void testOfferThenPoll(){
 		//Arrange
 		final Queue<String> queue = new ConcurrentSetBlockingQueue<>();
@@ -44,11 +45,12 @@ public class ConcurrentSetQueueUnitTest {
 
 		//Test
 		for(String s : dataSet){
-			Assert.assertEquals(queue.poll(), s, "Polled String is incorrect");
+			Assertions.assertEquals(queue.poll(), s, "Polled String is incorrect");
 		}
-		Assert.assertTrue(queue.isEmpty());
+		Assertions.assertTrue(queue.isEmpty());
 	}
 
+	@Test
 	public void testOfferDuplicates(){
 		//Arrange
 		final Queue<Integer> queue = new ConcurrentSetBlockingQueue<>();
@@ -58,10 +60,11 @@ public class ConcurrentSetQueueUnitTest {
 		final boolean secondOffer = queue.offer(1);
 
 		//Test
-		Assert.assertTrue(firstOffer);
-		Assert.assertFalse(secondOffer);
+		Assertions.assertTrue(firstOffer);
+		Assertions.assertFalse(secondOffer);
 	}
-
+	
+	@Test
 	public void testPeek(){
 		//Arrange
 		final Queue<Integer> queue = new ConcurrentSetBlockingQueue<>();
@@ -73,12 +76,13 @@ public class ConcurrentSetQueueUnitTest {
 		final int shouldBeOne = queue.size();
 
 		//Test
-		Assert.assertNull(shouldBeNull);
-		Assert.assertTrue(shouldBeTrue);
-		Assert.assertNotNull(shouldBeNonNull);
-		Assert.assertEquals(1, shouldBeOne);
+		Assertions.assertNull(shouldBeNull);
+		Assertions.assertTrue(shouldBeTrue);
+		Assertions.assertNotNull(shouldBeNonNull);
+		Assertions.assertEquals(1, shouldBeOne);
 	}
 
+	@Test
 	public void testRemove(){
 		//Arrange
 		final Queue<Integer> queue = new ConcurrentSetBlockingQueue<>();
@@ -98,14 +102,15 @@ public class ConcurrentSetQueueUnitTest {
 		final int finalQueueSize = queue.size();
 
 		//Test
-		Assert.assertNotNull(expectedException);
-		Assert.assertTrue(addedFirst);
-		Assert.assertTrue(addedSecond);
-		Assert.assertTrue(addedThird);
-		Assert.assertEquals(integerRemoved, new Integer(3));
-		Assert.assertEquals(finalQueueSize, 2);
+		Assertions.assertNotNull(expectedException);
+		Assertions.assertTrue(addedFirst);
+		Assertions.assertTrue(addedSecond);
+		Assertions.assertTrue(addedThird);
+		Assertions.assertEquals(3, integerRemoved);
+		Assertions.assertEquals(finalQueueSize, 2);
 	}
 
+	@Test
 	public void testElement(){
 		//Arrange
 		final Queue<Integer> queue = new ConcurrentSetBlockingQueue<>();
@@ -124,10 +129,10 @@ public class ConcurrentSetQueueUnitTest {
 		final int shouldBeTwo = queue.size();
 
 		//Test
-		Assert.assertNotNull(expectedException);
-		Assert.assertTrue(addedFirst);
-		Assert.assertTrue(addedSecond);
-		Assert.assertNotNull(shouldBeNonNull);
-		Assert.assertEquals(2, shouldBeTwo);
+		Assertions.assertNotNull(expectedException);
+		Assertions.assertTrue(addedFirst);
+		Assertions.assertTrue(addedSecond);
+		Assertions.assertNotNull(shouldBeNonNull);
+		Assertions.assertEquals(2, shouldBeTwo);
 	}
 }

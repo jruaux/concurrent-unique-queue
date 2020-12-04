@@ -1,12 +1,11 @@
 package com.hybhub.util.concurrent;
 
-import org.testng.Assert;
-import org.testng.annotations.Test;
-
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-@Test
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
 public class ConcurrentSetBlockingQueueThreadPoolExecutorTest {
 
     /**
@@ -40,12 +39,12 @@ public class ConcurrentSetBlockingQueueThreadPoolExecutorTest {
         final long shouldBeThree = threadPoolExecutor.getCompletedTaskCount();
 
         //Test
-        Assert.assertEquals(shouldBeZero, 0);
-        Assert.assertEquals(shouldBeOne, 1);
-        Assert.assertEquals(shouldBeOneStill, 1);
-        Assert.assertEquals(shouldBeTwo, 2);
-        Assert.assertEquals(shouldBeTwoStill, 2);
-        Assert.assertEquals(shouldBeThree, 3);
+        Assertions.assertEquals(0, shouldBeZero);
+        Assertions.assertEquals(1, shouldBeOne);
+        Assertions.assertEquals(1, shouldBeOneStill);
+        Assertions.assertEquals(2, shouldBeTwo);
+        Assertions.assertEquals(2, shouldBeTwoStill);
+        Assertions.assertEquals(3, shouldBeThree);
     }
 
     private class SimpleRunnable implements Runnable {
