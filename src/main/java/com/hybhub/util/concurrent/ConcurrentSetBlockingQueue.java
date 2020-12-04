@@ -7,11 +7,12 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
- * A blocking queue backed by a set so duplicates inside the queue are not allowed.
+ * A blocking queue backed by a set so duplicates inside the queue are not
+ * allowed.
+ * 
  * @param <E>
  */
 public class ConcurrentSetBlockingQueue<E> extends ConcurrentSetQueue<E> implements BlockingQueue<E> {
-
 
 	public ConcurrentSetBlockingQueue(final int capacity) {
 		super(capacity);
@@ -23,7 +24,7 @@ public class ConcurrentSetBlockingQueue<E> extends ConcurrentSetQueue<E> impleme
 
 	@Override
 	public int remainingCapacity() {
-		return ( capacity - count.get() );
+		return (capacity - count.get());
 	}
 
 	@Override
@@ -63,7 +64,6 @@ public class ConcurrentSetBlockingQueue<E> extends ConcurrentSetQueue<E> impleme
 		}
 
 		int c;
-		final ReentrantLock putLock = this.putLock;
 		final AtomicInteger count = this.count;
 		fullyLock();
 		try {
@@ -87,6 +87,10 @@ public class ConcurrentSetBlockingQueue<E> extends ConcurrentSetQueue<E> impleme
 		}
 	}
 
+	/**
+	 * 	@see BlockingQueue
+	 *  @return {@code true} upon success and {@code false} if no space is currently available
+	 */
 	@Override
 	public boolean offer(final E e, final long timeout, final TimeUnit unit) throws InterruptedException {
 		if (e == null) {
@@ -99,7 +103,8 @@ public class ConcurrentSetBlockingQueue<E> extends ConcurrentSetQueue<E> impleme
 		putLock.lockInterruptibly();
 		try {
 			if (set.contains(e)) {
-				return false;
+				// Space is available and entry is already in the queue so return true 
+				return true;
 			}
 
 			while (count.get() == capacity) {
