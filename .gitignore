@@ -18,3 +18,6 @@ target/
 concurrent.iml
 pom.xml.releaseBackup
 release.properties
+/.settings/
+/.classpath
+/.project
